@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Takeam J Gauthier — IT Administrator & Technical Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#1e2028;
+      --bg-2:#23252e;
+      --border:rgba(255,255,255,.14);
+      --text:#ffffff;
+      --muted:#9aa0ab;
+      --accent:#b593f5;
+      --accent-2:#a78bfa;
+      --font-head:'Poppins',sans-serif;
+      --font-body:'Inter',sans-serif;
+      --font-mono:'JetBrains Mono',monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--font-body);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1180px;margin:0 auto;padding:0 24px}
+
+    /* ---------- Top nav ---------- */
+    .site-nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(30,32,40,.85);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .site-nav .container{display:flex;align-items:center;justify-content:space-between;padding:16px 24px}
+    .logo{font-family:var(--font-head);font-weight:800;font-size:1.5rem;letter-spacing:1px}
+    .logo span{color:var(--accent)}
+    .nav-links{display:flex;gap:30px}
+    .nav-links a{font-size:.95rem;color:var(--text);transition:color .2s}
+    .nav-links a .hash{color:var(--accent);margin-right:4px;font-family:var(--font-mono)}
+    .nav-links a:hover{color:var(--accent)}
+
+    /* ---------- Left social rail ---------- */
+    .rail{
+      position:fixed;left:18px;top:50%;transform:translateY(-50%);
+      display:flex;flex-direction:column;gap:22px;z-index:40;
+    }
+    .rail::before{content:"";position:absolute;left:-9px;top:-30px;width:1px;height:160px;background:var(--border)}
+    .rail a{color:var(--muted);transition:color .2s;display:inline-flex}
+    .rail a:hover{color:var(--accent)}
+    .rail svg{width:22px;height:22px;fill:currentColor}
+
+    /* ---------- Hero ---------- */
+    .hero{padding:70px 0 30px}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+    .hero h1{font-family:var(--font-head);font-weight:700;font-size:clamp(2rem,3.6vw,3rem);line-height:1.15;margin-bottom:20px}
+    .hero h1 .accent{color:var(--accent)}
+    .hero p.sub{color:var(--muted);font-size:1.05rem;max-width:440px;margin-bottom:30px}
+    .btn{
+      display:inline-block;padding:12px 26px;border:1px solid var(--border);
+      border-radius:2px;font-size:.9rem;font-weight:500;background:transparent;
+      transition:all .2s;cursor:pointer
+    }
+    .btn:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* hero visual panel */
+    .hero-visual{position:relative;height:340px}
+    .panel{
+      position:absolute;inset:0;background:linear-gradient(150deg,#2a2c38,#1b1d24);
+      border:1px solid var(--border);overflow:hidden
+    }
+    .panel::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(181,147,245,.16),transparent 55%)}
+    .sq{position:absolute;border:1px solid var(--accent-2);opacity:.7}
+    .sq.s1{width:70px;height:70px;left:-30px;top:18px}
+    .sq.s2{width:46px;height:46px;left:-12px;top:52px}
+    .dots{
+      position:absolute;right:24px;bottom:60px;width:96px;height:72px;
+      background-image:radial-gradient(circle,rgba(255,255,255,.55) 1.2px,transparent 1.3px);
+      background-size:15px 15px
+    }
+    .badge{
+      position:absolute;left:-18px;bottom:-14px;background:var(--bg-2);
+      border:1px solid var(--border);padding:10px 16px;font-size:.85rem;display:flex;align-items:center;gap:9px;z-index:2
+    }
+    .badge .dot{width:11px;height:11px;background:var(--accent)}
+    .badge b{font-weight:600}
+
+    /* ---------- Quote ---------- */
+    .quote-wrap{padding:70px 0;max-width:820px;margin:0 auto}
+    .quote-box{position:relative;padding:34px 40px;border:1px solid var(--border)}
+    .qmark{color:var(--accent);font-family:var(--font-head);font-weight:800;font-size:2.6rem;line-height:1;user-select:none}
+    .quote-box .qmark.top{position:absolute;top:-14px;left:26px}
+    .quote-text{font-family:var(--font-head);font-weight:500;font-size:1.35rem;text-align:center;margin:14px 0}
+    .quote-attr{
+      position:relative;max-width:280px;margin:-14px 0 0 auto;padding:16px 22px;
+      border:1px solid var(--border);background:var(--bg)
+    }
+    .quote-attr .qmark{font-size:1.6rem;display:block}
+    .quote-attr p{color:var(--muted);font-size:.9rem;margin-top:2px}
+
+    /* ---------- Section head ---------- */
+    section{padding:54px 0}
+    .section-head{display:flex;align-items:center;gap:18px;margin-bottom:38px}
+    .section-head .hash{color:var(--accent);font-family:var(--font-mono)}
+    .section-head h2{font-family:var(--font-head);font-weight:600;font-size:1.7rem;text-transform:lowercase;letter-spacing:.5px}
+    .section-head .line{flex:1;height:1px;background:var(--border)}
+    .view-all{padding:8px 14px;border:1px solid var(--border);font-size:.8rem;border-radius:2px;transition:all .2s}
+    .view-all:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* ---------- Cards (projects) ---------- */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px}
+    .card{background:var(--bg-2);border:1px solid var(--border);display:flex;flex-direction:column;transition:border-color .2s}
+    .card:hover{border-color:var(--accent)}
+    .card-media{height:170px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:1.5rem;color:rgba(255,255,255,.9);letter-spacing:2px}
+    .card-media.m1{background:linear-gradient(135deg,#4a63e7,#b593f5)}
+    .card-media.m2{background:linear-gradient(135deg,#7c5cf0,#e08cff)}
+    .card-media.m3{background:linear-gradient(135deg,#3b82f6,#a78bfa)}
+    .card-media.m4{background:linear-gradient(135deg,#5b6ee1,#c9b3ff)}
+    .card-tag{font-family:var(--font-mono);font-size:.8rem;color:var(--muted);padding:12px 18px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .card-body{padding:20px 18px;display:flex;flex-direction:column;gap:14px}
+    .card-body h3{font-family:var(--font-head);font-weight:600;font-size:1.05rem;line-height:1.3}
+    .card-body ul{padding-left:18px;color:var(--muted);font-size:.9rem}
+    .card-body li{margin-bottom:7px}
+    .btn-small{align-self:flex-start;padding:8px 16px;border:1px solid var(--border);font-size:.82rem;margin-top:auto;transition:all .2s}
+    .btn-small:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* ---------- Skills ---------- */
+    .skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+    .skill{background:var(--bg-2);border:1px solid var(--border);padding:22px}
+    .skill h3{font-family:var(--font-head);color:var(--accent);font-weight:600;font-size:.95rem;margin-bottom:10px}
+    .skill p{color:var(--muted);font-size:.9rem}
+
+    /* ---------- Experience ---------- */
+    .xp{border:1px solid var(--border);background:var(--bg-2);padding:24px 26px;margin-bottom:20px}
+    .xp:last-child{margin-bottom:0}
+    .xp-head{display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+    .xp-head h3{font-family:var(--font-head);font-weight:600;font-size:1.1rem}
+    .xp-date{font-family:var(--font-mono);font-size:.82rem;color:var(--accent)}
+    .xp ul{padding-left:18px;color:var(--muted);font-size:.92rem}
+    .xp li{margin-bottom:8px}
+
+    /* ---------- Education & Achievements ---------- */
+    .edu-block{margin-bottom:34px}
+    .edu-block h3{font-family:var(--font-head);font-weight:600;color:var(--accent);font-size:.95rem;margin-bottom:12px}
+    .edu-block p,.edu-block li{color:var(--muted);font-size:.95rem}
+    .edu-block ul{padding-left:18px}
+    .edu-block li{margin-bottom:8px}
+
+    /* ---------- Contact ---------- */
+    #contact{text-align:center;padding:60px 0}
+    #contact p.lead{color:var(--muted);max-width:480px;margin:0 auto 26px}
+    .contact-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+    /* ---------- Footer ---------- */
+    .site-footer{border-top:1px solid var(--border);padding:26px 0;text-align:center;color:var(--muted);font-size:.85rem}
+
+    @media(max-width:820px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-visual{height:300px;order:-1;margin-bottom:20px}
+      .rail{display:none}
+      .nav-links{gap:16px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left social rail -->
+  <aside class="rail" aria-label="Social links">
+    <a href="https://github.com" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5 3.6 9.2 8.4 10.7.6.1.8-.3.8-.6v-2c-3.5.8-4.2-1.7-4.2-1.7-.6-1.5-1.4-1.9-1.4-1.9-1.2-.8.1-.8.1-.8 1.3.1 2 . 1 2 1 .1 1.3 1.2 2 1.8 2 .1 0 .2 0 .2 0 .1 0 0-1.6 0-1.6 1-1.4 2.7-1.5 3.2-1.5 1-.1 2 .6 2 .6 1.4-.1 1.9-1.8 1.9-2.6 0-.1 0-.2 0-.3 1-1.3 1.7-3.2 1.7-6.5 0-.5 0-.9-.1-1C23.4 5.7 18.2.5 12 .5z"/></svg></a>
+    <a href="https://linkedin.com/in/takeam-gauthier" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.6 4.11 5.5 3 5.5S1 4.6 1 3.5 1.9 1.5 3 1.5s2 .9 2 2zM2 8.5h2.8V22H2V8.5zm5 0h2.7v1.8h.04c.4-.7 1.4-1.5 2.9-1.5 3 0 3.6 2 3.6 4.6V22h-2.8v-6.5c0-1.5-.1-2.8-1.8-2.8-1 0-1.6.7-1.9 1.4-.1.2-.1.5-.1.9V22H7V8.5z"/></svg></a>
+    <a href="mailto:tkmgthr2@gmail.com" title="Email"><svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.9l8 5.1 8-5.1V6h-.5L12 11 4.5 6H4z"/></svg></a>
+    <a href="tel:+13052900277" title="Phone"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C9.4 21 3 14.6 3 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></a>
+  </aside>
+
+  <!-- Top nav -->
+  <header class="site-nav">
+    <div class="container">
+      <span class="logo">TAKEAM<span>.</span></span>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#home"><span class="hash">#</span>home</a>
+        <a href="#projects"><span class="hash">#</span>projects</a>
+        <a href="#experience"><span class="hash">#</span>experience</a>
+        <a href="#about-me"><span class="hash">#</span>about-me</a>
+        <a href="#contact"><span class="hash">#</span>contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Takeam is a <span class="accent">Network Administrator</span><br>and <span class="accent">IT Support Specialist</span></h1>
+          <p class="sub">I keep systems reliable and people supported — moving comfortably between the server room and the front of house.</p>
+          <a href="#contact" class="btn">Contact me!</a>
+        </div>
+        <div class="hero-visual">
+          <div class="panel"></div>
+          <span class="sq s1"></span>
+          <span class="sq s2"></span>
+          <div class="dots"></div>
+          <div class="badge"><span class="dot"></span><span>Currently working on <b>&nbsp;Portfolio</b></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <div class="quote-wrap">
+      <div class="quote-box">
+        <span class="qmark top">&ldquo;</span>
+        <p class="quote-text">Owning the full stack — from the build to the breakdown — is where I do my best work.</p>
+        <div class="quote-attr">
+          <span class="qmark">&rdquo;</span>
+          <p>&ndash; Takeam J Gauthier</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-head">
+        <span class="hash">#</span><h2>projects</h2>
+        <span class="line"></span>
+        <a href="#projects" class="view-all">View all &nearrow;</a>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-media m1">azure</div>
+          <div class="card-tag">Self-Directed &middot; 2026</div>
+          <div class="card-body">
+            <h3>Cloud Resume Challenge &mdash; Azure</h3>
+            <ul>
+              <li>Built and deployed a production resume website as an Azure Storage static website, served over HTTPS through Azure CDN with a custom DNS domain.</li>
+              <li>Developed a visitor-counter API using Azure Functions (Python + Azure SDK) backed by Cosmos DB (Table API, serverless), fronted with JavaScript.</li>
+              <li>Defined all infrastructure as code via ARM templates on a Consumption plan and automated deployment with GitHub Actions CI/CD plus Python unit tests.</li>
+            </ul>
+            <a href="#" class="btn-small">View Project</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media m2">pbx / voip</div>
+          <div class="card-tag">Self-Directed &middot; 2026</div>
+          <div class="card-body">
+            <h3>PBX Infrastructure Portfolio &mdash; FreePBX / Asterisk (On-Prem) &amp; 3CX / AWS (Cloud)</h3>
+            <ul>
+              <li>Designed and built a production-grade PBX architecture from scratch — an on-prem FreePBX/Asterisk lab on dedicated NUC hardware, plus the same architecture deployed in the cloud with 3CX on AWS EC2.</li>
+              <li>Provisioned three PJSIP extensions (1001&ndash;1003) with a custom IVR, departmental call queues (Sales / Client Support), voicemail overflow, and system call recording.</li>
+              <li>Hardened the SIP stack with firewall zone segmentation, auto-generated /32 source-locking rules to prevent toll fraud, and intrusion detection for registration floods.</li>
+            </ul>
+            <a href="#" class="btn-small">View Project</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media m3">wi-fi 6</div>
+          <div class="card-tag">Self-Directed &middot; 2021</div>
+          <div class="card-body">
+            <h3>Managed Wi-Fi Environment &mdash; Ubiquiti EdgeRouter &amp; EnGenius (Wi-Fi 6)</h3>
+            <ul>
+              <li>Replaced a consumer ISP router with a bridge-mode Comcast gateway and Ubiquiti EdgeRouter Lite as the primary network gateway, eliminating double NAT and taking control of DHCP, firewall rules, and traffic shaping.</li>
+              <li>Deployed an EnGenius EWS357AP (Wi-Fi 6 / 802.11ax) managed access point as the sole residential wireless source; configured SSID, channel planning, and client capacity for consistent whole-home coverage.</li>
+            </ul>
+            <a href="#" class="btn-small">View Project</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media m4">proxmox</div>
+          <div class="card-tag">Self-Directed &middot; 2021&ndash;2023</div>
+          <div class="card-body">
+            <h3>Linux Virtualization &amp; Container Homelab &mdash; Proxmox / KVM / LXD</h3>
+            <ul>
+              <li>Built a two-node Dell R710 Proxmox cluster (v6 &rarr; v7) supporting virtual machines, LXD containers, and Docker workloads; configured high availability across nodes.</li>
+              <li>Federated LXD across both servers with a Raspberry Pi master, demonstrating cross-platform container orchestration without commercial hypervisor licensing.</li>
+              <li>Configured KVM/QEMU device passthrough using VFIO and OVMF on Manjaro Linux, isolating IOMMU groups to achieve near-native Windows performance; maintained the build through Microsoft's TPM 2.0 enforcement transition.</li>
+            </ul>
+            <a href="#" class="btn-small">View Project</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <div class="section-head">
+        <span class="hash">#</span><h2>experience</h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="xp">
+        <div class="xp-head"><h3>IT Administrator &middot; PTE Systems International LLC</h3><span class="xp-date">Jun 2024 &ndash; Present</span></div>
+        <ul>
+          <li>Provide end-user support for email, PCs, servers, printers, and mobile devices across a 200+ user environment.</li>
+          <li>Configure and manage Cisco and FortiGate switches, access points, and network equipment; established a WAN connecting Miami, FL to Nashville, TN.</li>
+          <li>Led implementation of a private in-house AI server using Ollama and OpenWebUI. With AI rarely used across the company, drove uniform adoption via Claude AI through collaboration with the security team, leading to the adoption of Bluebeam Max.</li>
+          <li>Instituted change management and change control practices that streamlined company workflows — standardizing how changes were planned, approved, and deployed to add value while minimizing disruption.</li>
+        </ul>
+      </div>
+
+      <div class="xp">
+        <div class="xp-head"><h3>IT / AV Support &middot; The Sylvester</h3><span class="xp-date">Jul 2021 &ndash; May 2024</span></div>
+        <ul>
+          <li>Delivered IT and AV support: troubleshooting POS systems, upgrading network cabling and equipment, and configuring DMX lighting (Onyx) for events.</li>
+          <li>Coordinated with NOVA Sound Group on onsite studio monitor installation and testing; performed weekly facility and equipment maintenance.</li>
+        </ul>
+      </div>
+
+      <div class="xp">
+        <div class="xp-head"><h3>IT Administrator / Office Assistant &middot; Florida East Coast Realty</h3><span class="xp-date">Aug 2017 &ndash; Mar 2021</span></div>
+        <ul>
+          <li>Integrated Avaya phone, Cisco Meraki, Ubiquiti, and Juniper network equipment across the company.</li>
+          <li>Migrated websites, documents, and archival data to new servers on schedule.</li>
+          <li>Installed Axis and Hikvision cameras across company infrastructure in various buildings.</li>
+          <li>Managed company mobile devices &amp; tablets (Verizon MDM) and provided end-user troubleshooting.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- About / Skills -->
+    <section id="about-me">
+      <div class="section-head">
+        <span class="hash">#</span><h2>about-me</h2>
+        <span class="line"></span>
+      </div>
+      <p style="color:var(--muted);max-width:760px;margin-bottom:34px;">I'm a technical professional with 5+ years of experience spanning network administration, end-user support, AV integration, and hands-on facility maintenance. I like owning the full stack: architecture, security, and the troubleshooting that happens when things break.</p>
+      <div class="skills">
+        <div class="skill"><h3>Network Security &amp; Administration</h3><p>TCP/IP, LAN/WAN design, Cisco, FortiGate, Meraki, Juniper, Ubiquiti, Avaya, Modbus</p></div>
+        <div class="skill"><h3>PBX / VoIP Systems</h3><p>FreePBX, Asterisk, 3CX, PJSIP, SIP trunking, IVR, call queues</p></div>
+        <div class="skill"><h3>Equipment Installation &amp; AV</h3><p>Onyx DMX lighting, POS systems, camera systems, studio monitors</p></div>
+        <div class="skill"><h3>Virtualization</h3><p>AWS EC2, on-prem NUC builds, server &amp; storage administration</p></div>
+        <div class="skill"><h3>Programming</h3><p>Bash/CLI, scripting for automation and troubleshooting</p></div>
+        <div class="skill"><h3>Soft Skills</h3><p>Communication &middot; Critical Thinking &middot; Conflict Resolution &middot; Teamwork &middot; Work Ethic &middot; Adaptability</p></div>
+      </div>
+    </section>
+
+    <!-- Education & Achievements -->
+    <section id="education">
+      <div class="section-head">
+        <span class="hash">#</span><h2>credentials</h2>
+        <span class="line"></span>
+      </div>
+      <div class="edu-block">
+        <h3>Education</h3>
+        <p>AS &mdash; Information Technology &middot; Miami Dade College (2017)</p>
+      </div>
+      <div class="edu-block">
+        <h3>Certifications</h3>
+        <ul>
+          <li>Microsoft Azure &mdash; In Progress (Expected December 2026)</li>
+          <li>Cynet Certified Partner</li>
+          <li>ConnectWise Certified Partner</li>
+        </ul>
+      </div>
+      <div class="edu-block">
+        <h3>Achievements</h3>
+        <ul>
+          <li>Remediated and recovered the PTE Systems International network in 2024.</li>
+          <li>Reestablished &amp; remotely managed the PTE Hikvision camera system &mdash; 52 cameras across 2 locations.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-head"><span class="hash">#</span><h2>contact</h2><span class="line"></span></div>
+      <p class="lead">I'm interested in freelance opportunities and new challenges. Reach out anytime.</p>
+      <div class="contact-row">
+        <a href="mailto:tkmgthr2@gmail.com" class="btn">tkmgthr2@gmail.com</a>
+        <a href="tel:+13052900277" class="btn">(305) 290-0277</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; Takeam J Gauthier &middot; US Eastern Time</p>
+  </footer>
+
+</body>
+</html>
